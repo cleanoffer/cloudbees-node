@@ -41,7 +41,6 @@ install_npm() {
 # [ Start! ]
 # Checking Node.js
 exist_directory $NODE_SOURCE_DIR || clone_node_from_github
-exit
 exist_directory $NODE_INSTALL_DIR || install_node
 is_command_in_path 'node' || add_node_to_path
 node --version
