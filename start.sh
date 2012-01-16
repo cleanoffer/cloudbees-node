@@ -15,6 +15,7 @@ exist_directory() {
 clone_node_from_github() {
     git clone https://github.com/joyent/node.git $NODE_SOURCE_DIR
     if [[ "$NODE_TAGGED_VERSION" != "" ]]; then
+        cd $NODE_SOURCE_DIR
         git checkout $NODE_TAGGED_VERSION
     fi
 }
