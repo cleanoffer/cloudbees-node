@@ -1,7 +1,7 @@
 #!/bin/bash
 NODE_SOURCE_DIR='build/node'
 NODE_INSTALL_DIR=$NODE_SOURCE_DIR'/installed'
-NODE_TAGGED_VERSION=""
+NODE_TAGGED_VERSION="0.6.7"
 
 if [ 1 -le $# ]; then
     NODE_TAGGED_VERSION=$1
@@ -18,6 +18,11 @@ clone_node_from_github() {
         cd $NODE_SOURCE_DIR
         git checkout $NODE_TAGGED_VERSION
     fi
+}
+
+get_node_from_github() {
+    curl -L -o node.zip  https://github.com/joyent/node/zipball/v${NODE_TAGGED_VERSION}
+    unzip node.zip $NODE_SOURCE_DIR
 }
 
 install_node() {
@@ -40,7 +45,7 @@ install_npm() {
 
 # [ Start! ]
 # Checking Node.js
-exist_directory $NODE_SOURCE_DIR || clone_node_from_github
+exist_directory $NODE_SOURCE_DIR || get_node_from_github
 exist_directory $NODE_INSTALL_DIR || install_node
 is_command_in_path 'node' || add_node_to_path
 node --version
